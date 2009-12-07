@@ -14,28 +14,33 @@ Yart encapsulates the body of Rails knowledge acquired from several hundred year
 What does Yart do?
 ==================
 
-  1. Installs the latest Rails gems into vendor/gems
-  2. Requires the use of database sessions
+  1. Vendors Rails into vendor/rails
+  2. Uses database sessions
   3. Uses the OpenRain Power Tools for convenient deployment
-  4. Comes with the following RUNTIME gems
+  4. Vendors the following gems
     * clearance - for User authentication
     * will_paginate - for paginating data
     * formtastic - for simple to use forms
     * paperclip - for handling attachments
-  5. Comes with the following TESTING gems
+  5. Vendors the following gems for testing
     * factory_girl - an alternative to fixtures
     * rspec - an alternative to Test Unit
     * cucumber - acceptance testing
   6. Sets up a default "home" controller
 
-What else should Yart do?
-=========================
+Yart TODO list
+==============
 
   * Bundle assets to support Rails apps running on JRuby
 
 Thanks goes to...
 =================
 
-  * [Rails Templates][http://m.onkey.org/2008/12/4/rails-templates]
-  * [How to setup RSpec, Cucumber, Webrat, Rcov, and autotest] [http://www.claytonlz.com/index.php/2009/04/how-to-setup-rspec-cucumber-webrat-rcov-and-autotest-on-leopard/]
-  * [jeremymcanally/rails-templates][http://github.com/jeremymcanally/rails-templates]
+  * [Rails Templates][1]
+  * [How to setup RSpec, Cucumber, Webrat, Rcov, and autotest][2]
+  * [jeremymcanally/rails-templates][3]
+
+
+  [1]: http://m.onkey.org/2008/12/4/rails-templates
+  [2]: http://www.claytonlz.com/index.php/2009/04/how-to-setup-rspec-cucumber-webrat-rcov-and-autotest-on-leopard/
+  [3]: http://github.com/jeremymcanally/rails-templates
