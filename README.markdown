@@ -32,6 +32,7 @@ Yart TODO list
 ==============
 
   * Bundle assets to support Rails apps running on JRuby
+  * Culerity and Celerity for testing JavaScript
 
 Thanks goes to...
 =================
