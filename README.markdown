@@ -6,6 +6,8 @@ A Rails template by Marc Chung. To create a Rails project with this template:
     $ rails -m yart.rb your_awesome_rails_project
     $ cat your_awesome_rails_project/README
 
+    Follow the instructions.
+
 What is Yart?
 =============
 
@@ -18,15 +20,16 @@ What does Yart do?
   2. Uses database sessions
   3. Uses the OpenRain Power Tools for convenient deployment
   4. Vendors the following gems
-    * clearance - for User authentication
-    * will_paginate - for paginating data
-    * formtastic - for simple to use forms
-    * paperclip - for handling attachments
+    * clearance - for authentication
+    * will_paginate - for pagination
+    * formtastic - for forms
+    * paperclip - for attachments
   5. Vendors the following gems for testing
-    * factory_girl - an alternative to fixtures
-    * rspec - an alternative to Test Unit
-    * cucumber - acceptance testing
+    * factory_girl - for faking data
+    * rspec - for BDD and mocking
+    * cucumber - for happy customers
   6. Sets up a default "home" controller
+  7. Uses PostgreSQL (heroku friendly out of the box)
 
 Yart TODO list
 ==============
@@ -40,6 +43,17 @@ Thanks goes to...
   * [Rails Templates][1]
   * [How to setup RSpec, Cucumber, Webrat, Rcov, and autotest][2]
   * [jeremymcanally/rails-templates][3]
+
+
+Known Issues
+============
+
+If this is the first time running this template, you need to use `sudo` so that the
+gems are installed into your system's directory instead of `~/.gem`.
+
+    sudo rails -m yart.rb foo # installs gems
+    rm -rf foo                # permissions are screwed up
+    rails -m yart.rb foo      # good to go
 
 
   [1]: http://m.onkey.org/2008/12/4/rails-templates

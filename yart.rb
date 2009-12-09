@@ -26,6 +26,7 @@ gem 'will_paginate', :version => '2.3.11', :source => 'http://gemcutter.org'
 gem 'formtastic', :version => '0.9.7', :source => 'http://gemcutter.org'
 gem 'paperclip', :version => '2.3.1.1', :source => 'http://gemcutter.org'
 gem 'rack', :version => '1.0.1', :source => 'http://gemcutter.org'
+# gem 'pg', :version => '0.8.0', :source => 'http://gemcutter.org'
 
 ########### 
 #
@@ -45,12 +46,35 @@ run "echo \'
 
 ########### 
 #
+# postgres
+#
+#
+
+pgconf = <<END
+development:
+  adapter: postgresql
+  database: yart_development
+  username: postgres
+  password:
+  host: localhost
+
+test:
+  adapter: postgresql
+  database: yart_test
+  username: postgres
+  password:
+  host: localhost
+END
+run "echo '#{pgconf}' > config/database.yml.postgresql.sample"
+
+###########
+#
 # generators
 #
 #
 
 generate("rspec")
-generate("cucumber")
+generate("cucumber --rspec")
 generate("formtastic")
 generate("clearance")
 generate("clearance_views")
@@ -62,10 +86,6 @@ run("yes | script/generate clearance_features")
 #
 #
 
-# webrat
-# cucumber + deps
-# nokogiri - it's a native gem
-
 config =<<CONFIG
 config.gem "factory_girl",  :version => "1.2.3", :source => "http://gemcutter.org"
 config.gem "nokogiri",      :version => "1.4.0", :lib => false, :source => "http://gemcutter.org"
@@ -75,6 +95,12 @@ run "echo \'
 #{config}
 \' >> config/environments/cucumber.rb"
 
+###########
+#
+# vendor gem everything, except native deps: nokogiri and pg
+#
+#
+
 rake "gems:install"
 rake "gems:unpack"
 run "rake gems:unpack RAILS_ENV=test"
@@ -82,6 +108,7 @@ run "rake gems:unpack:dependencies RAILS_ENV=test"
 run "rake gems:unpack RAILS_ENV=cucumber"
 run "rake gems:build RAILS_ENV=cucumber"
 run "rake gems:unpack:dependencies RAILS_ENV=cucumber"
+
 run "rm -rf vendor/gems/nokogiri-1.4.0"
 
 ########### 
@@ -90,7 +117,7 @@ run "rm -rf vendor/gems/nokogiri-1.4.0"
 #
 #
 
-run "cp config/database.yml config/database.yml.example"
+run "cp config/database.yml config/database.yml.sample"
 
 file '.gitignore', <<-END
 .DS_Store
@@ -104,8 +131,11 @@ END
 
 run "rm public/index.html"
 run "rm public/favicon.ico"
-run "rmdir test/fixtures test/functional test/integration test/unit"
+run "rm db/*.sqlite3"
+
+run "touch public/stylesheets/screen.css"
 run "mv test/factories spec"
+run "rmdir test/fixtures test/functional test/integration test/unit"
 
 run 'echo "
 DO_NOT_REPLY = \'noreply@tasteredpear.com\'" >> config/environment.rb'
@@ -142,6 +172,16 @@ HOST = \'localhost\'" >> config/environments/cucumber.rb'
 generate("rspec_controller Home index")
 route("map.root :controller => :home")
 
+file 'app/views/home/index.html.erb',
+%q{<h1>Home#index</h1>
+  <p>Find me in app/views/home/index.html.erb</p>
+  <ul>
+    <li><%= link_to("Sign up", sign_up_path) %></li>
+    <li><%= link_to("Sign in", sign_in_path) %></li>
+    <li><%= link_to("Sign out", sign_out_path) %></li>
+  </ul>
+}
+
 file 'app/views/layouts/_flashes.html.erb',
 %q{<div id="flashes">
   <% flash.each do |key, value| -%>
@@ -168,7 +208,10 @@ file 'app/views/layouts/application.html.erb',
     <meta name="author" content="" />
     <title><%= @page_title or 'Page Title' %></title>
     <%= stylesheet_link_tag 'screen', :media => 'all', :cache => true %>
+    <%= stylesheet_link_tag "formtastic" %>
+    <%= stylesheet_link_tag "formtastic_changes" %>
     <%= javascript_include_tag :defaults, :cache => true %>
+
   </head>
 
   <body class="<%= body_class %>">
@@ -178,10 +221,8 @@ file 'app/views/layouts/application.html.erb',
 </html>
 }
 
-
- # 36.run "curl -L http://jqueryjs.googlecode.com/files/jquery-1.2.6.min.js > public/javascripts/jquery.js"
- # 37.run "curl -L http://jqueryjs.googlecode.com/svn/trunk/plugins/form/jquery.form.js > public/javascripts/jquery.form.js"
- # 38.
+ # run "curl -L http://jqueryjs.googlecode.com/files/jquery-1.2.6.min.js > public/javascripts/jquery.js"
+ # run "curl -L http://jqueryjs.googlecode.com/svn/trunk/plugins/form/jquery.form.js > public/javascripts/jquery.form.js"
 
 ########### 
 #
@@ -194,8 +235,11 @@ To get started:
 
  $ rake db:create:all
  $ rake db:migrate
- # rake db:test:clone
- $ AUTOFEATURE=true script/autospec
+ $ rake db:test:clone
+ # sudo gem install ZenTest
+ $ AUTOFEATURE=true ./script/autospec
+ or
+ $ ./script/server
 END
 
 ########### 
