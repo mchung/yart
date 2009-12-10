@@ -58,12 +58,15 @@ development:
   password:
   host: localhost
 
-test:
+test: &TEST
   adapter: postgresql
   database: yart_test
   username: postgres
   password:
   host: localhost
+
+cucumber:
+  <<: *TEST
 END
 run "echo '#{pgconf}' > config/database.yml.postgresql.sample"
 
