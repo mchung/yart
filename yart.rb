@@ -214,7 +214,8 @@ file 'app/views/layouts/application.html.erb',
     <%= stylesheet_link_tag "formtastic" %>
     <%= stylesheet_link_tag "formtastic_changes" %>
     <%= javascript_include_tag :defaults, :cache => true %>
-
+  	<link rel="shortcut icon" type="image/x-icon" href="/images/rails.png" />
+  	<link rel="icon" type="image/x-icon" href="/images/rails.png" />
   </head>
 
   <body class="<%= body_class %>">
