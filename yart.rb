@@ -38,6 +38,7 @@ config =<<CONFIG
 config.gem "factory_girl",  :version => "1.2.3", :source => "http://gemcutter.org"
 config.gem "rspec",         :lib => false, :version => "1.2.9", :source => "http://gemcutter.org"
 config.gem "rspec-rails",   :lib => false, :version => "1.2.9", :source => "http://gemcutter.org"
+config.gem "email_spec",   :lib => "email_spec", :version => "0.3.7", :source => "http://gemcutter.org"
 CONFIG
 
 run "echo \'
@@ -82,6 +83,7 @@ generate("formtastic")
 generate("clearance")
 generate("clearance_views")
 run("yes | script/generate clearance_features")
+generate("email_spec")
 
 ########### 
 #
@@ -92,11 +94,22 @@ run("yes | script/generate clearance_features")
 config =<<CONFIG
 config.gem "factory_girl",  :version => "1.2.3", :source => "http://gemcutter.org"
 config.gem "nokogiri",      :version => "1.4.0", :lib => false, :source => "http://gemcutter.org"
+config.gem "email_spec",    :version => "0.3.7", :lib => "email_spec", :source => "http://gemcutter.org"
 CONFIG
 
 run "echo \'
 #{config}
 \' >> config/environments/cucumber.rb"
+
+###########
+#
+# update env.rb
+#
+#
+
+run "echo \'
+require \"email_spec/cucumber\"
+\' >> features/support/env.rb"
 
 ###########
 #
@@ -240,7 +253,7 @@ To get started:
  $ rake db:create:all
  $ rake db:migrate
  $ rake db:test:clone
- # sudo gem install ZenTest
+ # sudo gem install ZenTest autotest-rails
  $ AUTOFEATURE=true ./script/autospec
  or
  $ ./script/server

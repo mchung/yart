@@ -28,6 +28,7 @@ What does Yart do?
     * factory_girl - for faking data
     * rspec - for BDD and mocking
     * cucumber - for happy customers
+    * email_spec - for testing emails
   6. Sets up a default "home" controller
   7. Uses PostgreSQL (heroku friendly out of the box)
 
