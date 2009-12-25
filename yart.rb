@@ -5,7 +5,7 @@
 #
 
 rake("rails:freeze:gems") # RELEASE=2.3.5
-rake('db:sessions:create')
+rake("db:sessions:create")
 
 ########### 
 #
@@ -13,7 +13,7 @@ rake('db:sessions:create')
 #
 #
 
-plugin 'power_tools', :git => 'git://github.com/openrain/power_tools.git'
+plugin "power_tools", :git => "git://github.com/openrain/power_tools.git"
 
 ########### 
 #
@@ -21,12 +21,12 @@ plugin 'power_tools', :git => 'git://github.com/openrain/power_tools.git'
 #
 #
 
-gem "clearance", :version => '0.8.3', :source  => 'http://gemcutter.org'
-gem 'will_paginate', :version => '2.3.11', :source => 'http://gemcutter.org'
-gem 'formtastic', :version => '0.9.7', :source => 'http://gemcutter.org'
-gem 'paperclip', :version => '2.3.1.1', :source => 'http://gemcutter.org'
-gem 'rack', :version => '1.0.1', :source => 'http://gemcutter.org'
-# gem 'pg', :version => '0.8.0', :source => 'http://gemcutter.org'
+gem "clearance", :version => "0.8.3", :source  => "http://gemcutter.org"
+gem "will_paginate", :version => "2.3.11", :source => "http://gemcutter.org"
+gem "formtastic", :version => "0.9.7", :source => "http://gemcutter.org"
+gem "paperclip", :version => "2.3.1.1", :source => "http://gemcutter.org"
+gem "rack", :version => "1.0.1", :source => "http://gemcutter.org"
+# gem "pg", :version => "0.8.0", :source => "http://gemcutter.org"
 
 ########### 
 #
@@ -135,7 +135,7 @@ run "rm -rf vendor/gems/nokogiri-1.4.0"
 
 run "cp config/database.yml config/database.yml.sample"
 
-file '.gitignore', <<-END
+file ".gitignore", <<-END
 .DS_Store
 coverage/*
 log/*.log
@@ -174,7 +174,7 @@ HOST = \'localhost\'" >> config/environments/cucumber.rb'
 #
 #
 
-# initializer 'mime_types.rb',
+# initializer "mime_types.rb",
 # %q{
 # Mime::Type.register_alias "application/json", :json
 # }
@@ -194,7 +194,7 @@ route("map.root :controller => :home")
 #
 #
 
-file 'app/views/home/index.html.erb',
+file "app/views/home/index.html.erb",
 %q{<h1>Home#index</h1>
   <p>Find me in app/views/home/index.html.erb</p>
   <ul>
@@ -204,7 +204,7 @@ file 'app/views/home/index.html.erb',
   </ul>
 }
 
-file 'app/views/layouts/_flashes.html.erb',
+file "app/views/layouts/_flashes.html.erb",
 %q{<div id="flashes">
   <% flash.each do |key, value| -%>
     <div id="flash_<%= key -%>"><%= html_escape(value) %></div>
@@ -212,7 +212,7 @@ file 'app/views/layouts/_flashes.html.erb',
 </div>
 }
 
-file 'app/helpers/application_helper.rb', 
+file "app/helpers/application_helper.rb", 
 %q{module ApplicationHelper
   def body_class
     "#{controller.controller_name} #{controller.controller_name}-#{controller.action_name}"
@@ -220,7 +220,7 @@ file 'app/helpers/application_helper.rb',
 end
 }
 
-file 'app/views/layouts/application.html.erb',
+file "app/views/layouts/application.html.erb",
 %q{<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -228,8 +228,8 @@ file 'app/views/layouts/application.html.erb',
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title><%= @page_title or 'Page Title' %></title>
-    <%= stylesheet_link_tag 'screen', :media => 'all', :cache => true %>
+    <title><%= @page_title or "Page Title" %></title>
+    <%= stylesheet_link_tag "screen", :media => "all", :cache => true %>
     <%= stylesheet_link_tag "formtastic" %>
     <%= stylesheet_link_tag "formtastic_changes" %>
     <%= javascript_include_tag :defaults, :cache => true %>
@@ -238,13 +238,13 @@ file 'app/views/layouts/application.html.erb',
   </head>
 
   <body class="<%= body_class %>">
-    <%= render :partial => 'layouts/flashes' -%>
+    <%= render :partial => "layouts/flashes" -%>
     <%= yield %>
   </body>
 </html>
 }
 
-file 'config/cucumber.yml',
+file "config/cucumber.yml",
 %q{
   default: --format progress features --strict --tags ~@wip
   wip: --tags @wip:3 --wip features
@@ -259,7 +259,7 @@ file 'config/cucumber.yml',
 #
 #
 
-file 'README', <<-END
+file "README", <<-END
 To get started:
 
  $ rake db:create:all
