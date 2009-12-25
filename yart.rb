@@ -188,6 +188,12 @@ HOST = \'localhost\'" >> config/environments/cucumber.rb'
 generate("rspec_controller Home index")
 route("map.root :controller => :home")
 
+###########
+#
+# initial files
+#
+#
+
 file 'app/views/home/index.html.erb',
 %q{<h1>Home#index</h1>
   <p>Find me in app/views/home/index.html.erb</p>
@@ -238,8 +244,14 @@ file 'app/views/layouts/application.html.erb',
 </html>
 }
 
- # run "curl -L http://jqueryjs.googlecode.com/files/jquery-1.2.6.min.js > public/javascripts/jquery.js"
- # run "curl -L http://jqueryjs.googlecode.com/svn/trunk/plugins/form/jquery.form.js > public/javascripts/jquery.form.js"
+file 'config/cucumber.yml',
+%q{
+  default: --format progress features --strict --tags ~@wip
+  wip: --tags @wip:3 --wip features
+}
+
+# run "curl -L http://jqueryjs.googlecode.com/files/jquery-1.2.6.min.js > public/javascripts/jquery.js"
+# run "curl -L http://jqueryjs.googlecode.com/svn/trunk/plugins/form/jquery.form.js > public/javascripts/jquery.form.js"
 
 ########### 
 #
