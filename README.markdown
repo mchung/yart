@@ -16,7 +16,7 @@ Let's be honest, getting started with Rails 3 is complicated. Not hard, or non-t
 
 So who are you?
 
-There's a good chance you're here because someone told you about my collection of Rails 3 builder recipes. You want to get up and running in Rails in as little time as possible. You're also willing to 
+There's a good chance you're here because someone told you about my collection of Rails 3 builder recipes. You want to get up and running in Rails in as little time as possible. There's a learning curve here, so you're also willing to read code.
 
 YART, or Yet Another Rails Template started out as a single Rails template intended on creating a default stack for development and production.  Since it's release, I've moved it over to Rails 3, adopted Bundler, and have decided to grow my collection.
 
