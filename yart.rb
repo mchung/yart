@@ -1,3 +1,6 @@
+# DEPRECATED
+puts "yart.rb is deprecated. use yart_builder.rb instead
+exit
 ########### 
 #
 # rails
@@ -21,7 +24,7 @@ plugin "power_tools", :git => "git://github.com/openrain/power_tools.git"
 #
 #
 
-gem "clearance", :version => "0.8.3", :source  => "http://gemcutter.org"
+gem "clearance", :version => "0.8.4", :source  => "http://gemcutter.org"
 gem "will_paginate", :version => "2.3.11", :source => "http://gemcutter.org"
 gem "formtastic", :version => "0.9.7", :source => "http://gemcutter.org"
 gem "paperclip", :version => "2.3.1.1", :source => "http://gemcutter.org"
@@ -38,7 +41,7 @@ config =<<CONFIG
 config.gem "factory_girl",  :version => "1.2.3", :source => "http://gemcutter.org"
 config.gem "rspec",         :lib => false, :version => "1.2.9", :source => "http://gemcutter.org"
 config.gem "rspec-rails",   :lib => false, :version => "1.2.9", :source => "http://gemcutter.org"
-config.gem "email_spec",   :lib => "email_spec", :version => "0.3.7", :source => "http://gemcutter.org"
+config.gem "email_spec",   :lib => "email_spec", :version => "0.3.8", :source => "http://gemcutter.org"
 CONFIG
 
 run "echo \'
@@ -78,7 +81,7 @@ run "echo '#{pgconf}' > config/database.yml.postgresql.sample"
 #
 
 generate("rspec")
-generate("cucumber --rspec")
+generate("cucumber --rspec --webrat")
 generate("formtastic")
 generate("clearance")
 generate("clearance_views")
@@ -93,8 +96,8 @@ generate("email_spec")
 
 config =<<CONFIG
 config.gem "factory_girl",  :version => "1.2.3", :source => "http://gemcutter.org"
-config.gem "nokogiri",      :version => "1.4.0", :lib => false, :source => "http://gemcutter.org"
-config.gem "email_spec",    :version => "0.3.7", :lib => "email_spec", :source => "http://gemcutter.org"
+config.gem "nokogiri",      :version => "1.4.1", :lib => false, :source => "http://gemcutter.org"
+config.gem "email_spec",    :version => "0.3.8", :lib => "email_spec", :source => "http://gemcutter.org"
 CONFIG
 
 run "echo \'
@@ -125,7 +128,7 @@ run "rake gems:unpack RAILS_ENV=cucumber"
 run "rake gems:build RAILS_ENV=cucumber"
 run "rake gems:unpack:dependencies RAILS_ENV=cucumber"
 
-run "rm -rf vendor/gems/nokogiri-1.4.0"
+run "rm -rf vendor/gems/nokogiri-1.4.1"
 
 ########### 
 #
@@ -196,16 +199,16 @@ route("map.root :controller => :home")
 
 file "app/views/home/index.html.erb",
 %q{<h1>Home#index</h1>
-  <p>Find me in app/views/home/index.html.erb</p>
-  <ul>
-    <li><%= link_to("Sign up", sign_up_path) %></li>
-    <li><%= link_to("Sign in", sign_in_path) %></li>
-    <li><%= link_to("Sign out", sign_out_path) %></li>
-  </ul>
+<p>Find me in app/views/home/index.html.erb</p>
+<ul>
+  <li><%= link_to("Sign up", sign_up_path) %></li>
+  <li><%= link_to("Sign in", sign_in_path) %></li>
+  <li><%= link_to("Sign out", sign_out_path) %></li>
+</ul>
 }
 
-file "app/views/layouts/_flashes.html.erb",
-%q{<div id="flashes">
+file "app/views/layouts/_flash.html.erb",
+%q{<div id="flash">
   <% flash.each do |key, value| -%>
     <div id="flash_<%= key -%>"><%= html_escape(value) %></div>
   <% end -%>
@@ -238,16 +241,15 @@ file "app/views/layouts/application.html.erb",
   </head>
 
   <body class="<%= body_class %>">
-    <%= render :partial => "layouts/flashes" -%>
+    <%= render :partial => "layouts/flash", :locals => { :flash => flash } -%>
     <%= yield %>
   </body>
 </html>
 }
 
 file "config/cucumber.yml",
-%q{
-  default: --format progress features --strict --tags ~@wip
-  wip: --tags @wip:3 --wip features
+%q{default: --format progress features --strict --tags ~@wip
+wip: --tags @wip:3 --wip features
 }
 
 # run "curl -L http://jqueryjs.googlecode.com/files/jquery-1.2.6.min.js > public/javascripts/jquery.js"
@@ -280,3 +282,4 @@ END
 git :init
 git :add => "."
 git :commit => "-a -m 'Initial commit'"
+
