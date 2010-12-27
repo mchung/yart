@@ -7,7 +7,8 @@ class AppBuilder < Rails::AppBuilder
   # 
   def update_environment
     @generator.append_file "Gemfile", <<-DOC
-gem "formtastic", "~> 1.1.0"
+# gem "formtastic", "~> 1.1.0"
+gem "simple_form", "~> 1.3"
 gem "will_paginate", "~> 2.3.15"
 gem "omnisocial", "~> 0.1.2"
 gem "json", "~> 1.4.6"
@@ -15,6 +16,13 @@ gem "nokogiri", "~> 1.4.3.1"
 gem "friendly_id", "~> 3.1.7"
 gem "rest-client", "~> 1.6.1", :require => "rest_client"
 gem "heroku"
+gem "jquery-rails", "~> 0.2.5"
+
+group :development do
+  gem "autotest", "= 4.3.2"
+  gem "autotest-rails-pure", "= 4.1.0"
+end
+
 DOC
   end
   
@@ -34,6 +42,20 @@ EOF
     system("rails generate formtastic:install")
     say("TODO: Add <%= formtastic_stylesheet_link_tag %> to layout.")
   end
+
+  # Installs and setups simple_form
+  #
+  def simple_form
+    say("Installing simple_form from generator", :yellow)
+    system("rails generate simple_form:install")
+  end
+
+  # Installs and setups jquery-rails
+  #
+  def jquery_rails
+    say("Installing jquery_rails from generator", :yellow)
+    system("rails generate jquery:install")
+  end
   
   # Updates the Gemfile to include useful Rubygems in testing
   # 
@@ -50,6 +72,8 @@ group :test do
   gem "faker", "0.3.1"
   gem "database_cleaner", "~> 0.5.2"
   gem "launchy", "0.3.7"
+  gem "fakeweb", "~> 1.3.0"
+  gem "timecop", "~> 0.3.5"
 end
     DOC
   end
@@ -80,7 +104,7 @@ EOF
   #
   def pickle
     say("Installing pickle from generator", :yellow)
-    system("rails generate pickle")
+    system("rails generate pickle --path --email")
   end
 
   # Creates a gemset for this application. 
@@ -99,10 +123,13 @@ EOF
 
     use_db_sessions
 
-    formtastic
+    # formtastic
+    simple_form
+    jquery_rails
     rspec
     factory_girl
     cucumber
+    pickle
 
     say("cd #{app_name} && bundle install", :yellow)
     # newrelic unless @options[:skip_newrelic]

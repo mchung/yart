@@ -3,7 +3,7 @@ YART is Yet Another Rails Template (and Builder)
 
 A Rails builder by Marc Chung. To create a Rails project with this builder:
 
-    $ rails new rails_example --builder=http://github.com/mchung/yart/raw/master/recipes/fast_builder.rb --database=postgresql 
+    $ rails new rails_example --builder=http://github.com/mchung/yart/raw/master/recipes/fast_builder.rb --database=postgresql -T
 
 What is Yart?
 ============
@@ -27,7 +27,7 @@ What does Yart do?
   2. Uses database sessions
   3. Uses Heroku for hosting your application
   4. Vendors the following gems
-    * formtastic - for forms
+    * simple_form - for forms
     * will_paginate - for pagination
   5. Vendors the following gems for testing
     * factory_girl - for replacing fixtures
